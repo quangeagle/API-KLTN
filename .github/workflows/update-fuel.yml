@@ -1,0 +1,24 @@
+name: Update Fuel Prices
+
+on:
+  schedule:
+    - cron: '0 1 * * 1'  # Chạy lúc 8h sáng thứ 2 giờ Việt Nam (tức 1h sáng UTC)
+  workflow_dispatch:  # Cho phép chạy thủ công từ GitHub Actions tab
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lấy mã nguồn
+        uses: actions/checkout@v3
+
+      - name: Cài Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Cài thư viện phụ thuộc
+        run: npm install
+
+      - name: Chạy file ApiXang.js
+        run: node ApiXang.js
